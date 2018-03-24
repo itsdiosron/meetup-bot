@@ -511,11 +511,9 @@ dispatcher.add_handler(CallbackQueryHandler(single_event_response, pattern = "^s
 # Again, fails and informs user of failure if event no longer exists
 ##
 def multidate_event_response(bot,update):
-    print "multidate event response called"
     multidate_event = get_multidate_event()
     query = update.callback_query
     name = query.from_user.first_name
-    print "dict: %s"%multidate_event.dict
 
     #Handle case with no event
     if multidate_event.dates == []:
@@ -526,7 +524,6 @@ def multidate_event_response(bot,update):
                         text = "Hmm, it seems that there isn't an event happening now.")
         return
 
-    print "event detected"
     if query.data[:5] == "date:": #update database with dates that people can go
         date = query.data[5:]
         multidate_event.dict[date] += name + '\n'
